@@ -7,7 +7,10 @@ defmodule EtsOwner.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     package: package,
+     description: description,
+     deps: deps,
+   ]
   end
 
   def application do
@@ -17,5 +20,20 @@ defmodule EtsOwner.Mixfile do
 
   defp deps do
     []
+  end
+
+  defp description do
+    """
+    A simple GenServer that owns your ETS tables and won't die, even if you do.
+    """
+  end
+
+  defp package do
+    [# These are the default files included in the package
+     name: :ets_owner,
+     files: ["lib", "mix.exs", "README.md", "LICENSE"],
+      maintainers: ["Chris Meyer"],
+      licenses: ["MIT"],
+      links: %{ "GitHub": "https://github.com/meyercm/ets_owner" }]
   end
 end

@@ -26,8 +26,11 @@ defmodule EtsOwner.Worker do
   end
 
   def handle_call( {:create_table, table_name, type, options}, _from, state) do
-    if :ets.info(table_name) == :undefined do
-      :ets.new(table_name, [:public, :named_table, type] ++ options)
+    try do
+      if :ets.info(table_name) == :undefined do
+        :ets.new(table_name, [:public, :named_table, type] ++ options)
+      end
+    rescue _ -> :ok
     end
     {:reply, table_name, state}
   end
